@@ -26,7 +26,7 @@
             </div>
             <p class="video-description-small">
                 {% set desc = video.description or '' %}
-                {{ desc[:100] }}{% if desc|length > 100 %}…{% endif %}
+                {{ desc[:100] }}{% if desc|length > 30 %}…{% endif %}
             </p>
         </div>
     </div>
