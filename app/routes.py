@@ -115,7 +115,6 @@ def upload():
             if not thumbnail_name or not os.path.exists(thumbnail_path):
                 raise Exception("All thumbnail generation attempts failed")
 
-            # Сохранение в БД
             video = Video(
                 title=form.title.data,
                 filename=unique_name,
@@ -207,7 +206,6 @@ def like_video(video_id):
 
     db.session.commit()
 
-    # Точное число лайков из БД
     likes_count = Like.query.filter_by(video_id=video.id).count()
 
     return jsonify({

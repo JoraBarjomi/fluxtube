@@ -66,12 +66,10 @@ class Like(db.Model):
     __tablename__ = 'like'
     id = db.Column(db.Integer, primary_key=True)
     
-    # Внешние ключи
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=True)
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'), nullable=True)
     
-    # Ограничение: лайк может быть либо к видео, либо к комментарию
     __table_args__ = (
         db.CheckConstraint(
             '(comment_id IS NOT NULL AND video_id IS NULL) OR (comment_id IS NULL AND video_id IS NOT NULL)',
@@ -105,7 +103,6 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'), nullable=False)
     
-    # Исправленные отношения
     parent_video = db.relationship(
         'Video', 
         back_populates='video_comments',

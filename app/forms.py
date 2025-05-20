@@ -26,7 +26,7 @@ class VideoUploadForm(FlaskForm):
     video_file = FileField('Video File', validators=[
         FileAllowed(['mp4', 'mov', 'avi'])
     ])
-    thumbnail = FileField('Thumbnail', validators=[  # Новое поле
+    thumbnail = FileField('Thumbnail', validators=[ 
         FileAllowed(['jpg', 'jpeg', 'png'])
     ])
     submit = SubmitField('Upload Video')

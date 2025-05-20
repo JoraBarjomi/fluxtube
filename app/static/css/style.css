@@ -1,32 +1,26 @@
-/* ----- 1. CSS Variables ----- */
 :root {
-  /* Accent colors */
-  --primary:   #663AE9;   /* Bright violet-blue */
-  --highlight: #654CAF;   /* Electric blue */
-  --primary-color: var(--primary); /* Единая переменная для основного цвета */
-  --border-color: var(--border); /* Единая переменная для цвета границ */
-  --bg-surface: var(--bg-surf); /* Единая переменная для фона панелей */
-  --text-color: var(--text); /* Единая переменная для основного текста */
-  --text-secondary: var(--text-sec); /* Единая переменная для второстепенного текста */
+  --primary:   #663AE9;
+  --highlight: #654CAF;
+  --primary-color: var(--primary);
+  --border-color: var(--border);
+  --bg-surface: var(--bg-surf);
+  --text-color: var(--text);
+  --text-secondary: var(--text-sec);
 
-  /* Backgrounds */
-  --bg-main:   #1F1F1F;   /* Deep charcoal */
-  --bg-surf:   #2F2F2F;   /* Dark panels */
-  --bg-alt:    #282828;   /* Slightly lighter alt panels */
+  --bg-main:   #1F1F1F;
+  --bg-surf:   #2F2F2F;
+  --bg-alt:    #282828;
 
-  /* Text colors */
-  --text:      #E0E0E0;   /* Light gray */
-  --text-sec:  #A1A1A1;   /* Medium gray */
+  --text:      #E0E0E0;
+  --text-sec:  #A1A1A1;
 
-  /* Borders & shadows */
-  --border:    #3A3A3A;   /* Neutral dark border */
+  --border:    #3A3A3A;
   --shadow:    0 4px 16px rgba(0,0,0,0.6);
 
   --radius:    12px;
   --transition: 0.35s ease;
 }
 
-/* ----- 2. Global Resets ----- */
 * {
   margin: 0;
   padding: 0;
@@ -44,7 +38,6 @@ body {
 a { color: var(--highlight); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ----- 3. Sidebar ----- */
 .sidebar {
   width: 260px;
   height: 100vh;
@@ -83,7 +76,7 @@ a:hover { text-decoration: underline; }
 }
 
 .logo:hover i {
-  color: #FFD700; /* Золотистый оттенок при наведении */
+  color: #FFD700;
 }
 
 .nav-items {
@@ -102,14 +95,14 @@ a:hover { text-decoration: underline; }
 .nav-item i {
   margin-right: 16px;
   font-size: 20px;
-  color: var(--primary-color); /* Иконки в основном цвете */
+  color: var(--primary-color);
 }
 .nav-item:hover {
   background: rgba(53,0,211,0.12);
   color: var(--primary-color);
 }
 .nav-item.active {
-    background-color: rgba(53,0,211,0.1); /* Мягкий оттенок основного цвета */
+    background-color: rgba(53,0,211,0.1);
     border-left: 4px solid var(--primary-color);
     color: var(--primary-color);
     font-weight: bold;
@@ -172,7 +165,6 @@ a:hover { text-decoration: underline; }
   margin-bottom: 0.5rem;
 }
 
-/* ----- 4. Header / Topbar ----- */
 .header {
   position: fixed;
   top: 0; left: 260px; right: 0;
@@ -186,7 +178,6 @@ a:hover { text-decoration: underline; }
   z-index: 500;
 }
 
-/* Wrapper for left-side elements (optional) */
 .header .nav-left {
   display: flex;
   align-items: center;
@@ -194,7 +185,7 @@ a:hover { text-decoration: underline; }
 
 .top-bar {
     display: flex;
-    justify-content: flex-end; /* Выравнивание справа */
+    justify-content: flex-end;
     align-items: center;
     padding: 16px 32px;
     background: var(--bg-surface);
@@ -250,11 +241,10 @@ a:hover { text-decoration: underline; }
 }
 
 .auth-links a:hover {
-    background: rgba(0, 130, 255, 0.1); /* Оттенок highlight */
+    background: rgba(0, 130, 255, 0.1);
     text-decoration: none;
 }
 
-/* ----- 5. Main Content ----- */
 .content {
   margin-left: 260px;
   padding: 96px 32px 32px;
@@ -268,7 +258,6 @@ a:hover { text-decoration: underline; }
     padding: 20px;
 }
 
-/* ----- 6. Video Grid ----- */
 .video-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -366,7 +355,6 @@ a:hover { text-decoration: underline; }
     margin-top: 5px;
 }
 
-/* Video player */
 .plyr--video .plyr__control {
     background: var(--bg-alt); 
     color: var(--text-color);
@@ -380,20 +368,20 @@ a:hover { text-decoration: underline; }
 .plyr--video .plyr__control:hover {
     background: var(--highlight);
     color: var(--text-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Добавляем тень при наведении */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .plyr--video .plyr__controls {
-    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%); /* Менее прозрачный фон панели */
+    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%);
     border-top: 1px solid var(--border-color);
     padding: 10px;
-    border-bottom-left-radius: 6px; /* Согласовываем радиус */
-    border-bottom-right-radius: 6px; /* Согласовываем радиус */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .plyr--video .plyr__progress__track {
-    background: #777; /* Немного светлее фон прогресс-бара */
-    height: 8px; /* Можно сделать немного толще */
+    background: #777;
+    height: 8px;
     border-radius: 4px;
 }
 
@@ -405,7 +393,7 @@ a:hover { text-decoration: underline; }
 }
 
 .plyr--video .plyr__volume__track {
-    background: #777; /* Немного светлее фон регулятора громкости */
+    background: #777;
     height: 8px;
     border-radius: 4px;
 }
@@ -426,8 +414,8 @@ a:hover { text-decoration: underline; }
 .plyr--video .plyr__menu__container button {
     background: var(--bg-surf);
     color: var(--text-color);
-    border-radius: 6px; /* Согласовываем радиус */
-    padding: 10px 14px; /* Согласовываем отступы */
+    border-radius: 6px;
+    padding: 10px 14px;
     transition: background-color 0.2s ease;
 }
 
@@ -455,29 +443,28 @@ a:hover { text-decoration: underline; }
     fill: currentColor;
 }
 
-/* ----- Стили для элементов Plyr (кастомизация) ----- */
 .plyr--video .plyr__control {
     background: var(--bg-alt);
     color: var(--text-color);
     border: none;
-    border-radius: 6px; /* Согласовываем радиус */
-    padding: 10px 14px; /* Согласовываем отступы */
+    border-radius: 6px;
+    padding: 10px 14px;
     font-size: 14px;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Добавляем transition для тени */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .plyr--video .plyr__control:hover {
     background: var(--primary-color);
     color: var(--text-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Добавляем тень при наведении */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .plyr--video .plyr__controls {
-    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%); /* Менее прозрачный фон панели */
+    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%);
     border-top: 1px solid var(--border-color);
     padding: 10px;
-    border-bottom-left-radius: 6px; /* Согласовываем радиус */
-    border-bottom-right-radius: 6px; /* Согласовываем радиус */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .plyr--video .plyr__progress__filled {
@@ -536,8 +523,8 @@ a:hover { text-decoration: underline; }
     background: var(--bg-alt);
     color: var(--text-color);
     border: none;
-    border-radius: 6px; /* Согласовываем радиус */
-    padding: 10px 14px; /* Согласовываем отступы */
+    border-radius: 6px;
+    padding: 10px 14px;
     font-size: 14px;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -548,12 +535,12 @@ a:hover { text-decoration: underline; }
 }
 
 .plyr--video .plyr__controls {
-    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%); /* Менее прозрачный фон панели */
+    background: linear-gradient(to top, rgba(47, 47, 47, 0.9) 0%, rgba(47, 47, 47, 0.7) 100%);
     border-top: 1px solid var(--border-color);
     padding: 10px;
-    border-bottom-left-radius: 6px; /* Согласовываем радиус */
-    border-bottom-right-radius: 6px; /* Согласовываем радиус */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Добавляем тень сверху */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .plyr--video .plyr__time {
@@ -565,8 +552,8 @@ a:hover { text-decoration: underline; }
 .plyr--video .plyr__menu__container button {
     background: var(--bg-surf);
     color: var(--text-color);
-    border-radius: 6px; /* Согласовываем радиус */
-    padding: 10px 14px; /* Согласовываем отступы */
+    border-radius: 6px;
+    padding: 10px 14px;
     transition: background-color 0.2s ease;
 }
 
@@ -575,7 +562,6 @@ a:hover { text-decoration: underline; }
     color: var(--text-color);
 }
 
-/* Иконка загрузки */
 .material-icons.cloud_upload {
     color: var(--highlight);
 }
@@ -597,7 +583,7 @@ a:hover { text-decoration: underline; }
 
 .error-icon .material-icons {
     font-size: 64px;
-    color: #ff4444; /* Оставил красным для выделения ошибки */
+    color: #ff4444;
 }
 
 .cross-icon {
@@ -605,7 +591,7 @@ a:hover { text-decoration: underline; }
     top: -10px;
     right: -15px;
     font-size: 32px !important;
-    color: #ff4444 !important; /* Оставил красным для выделения ошибки */
+    color: #ff4444 !important;
 }
 
 .upload-button {
@@ -653,7 +639,6 @@ a:hover { text-decoration: underline; }
     border: 3px solid var(--primary-color);
 }
 
-/* ----- Стили для страницы загрузки ----- */
 .upload-container {
     max-width: 800px;
     margin: 40px auto;
@@ -777,7 +762,6 @@ a:hover { text-decoration: underline; }
     background: #cc0000;
 }
 
-/* ----- Video Page Styles ----- */
 .video-header {
   display: flex;
   align-items: center;
@@ -844,7 +828,6 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   color: var(--text-primary);
 }
-/* Скрыть текст в кнопках */
 .actions .btn span:not(.like-count) {
   display: none;
 }
@@ -981,10 +964,9 @@ a:hover { text-decoration: underline; }
 }
 
 .desc-content.open {
-  max-height: 500px; /* достаточно, чтобы показать весь текст */
+  max-height: 500px;
 }
 
-/* Comments Section */
 .video-comments {
   background: var(--bg-alt);
   border-radius: var(--radius);
@@ -1069,7 +1051,6 @@ a:hover { text-decoration: underline; }
 .comment { margin: 1rem 0; padding: 1rem; background: #654CAF;; border-radius: 8px; }
 .comment-avatar { width: 40px; height: 40px; border-radius: 50%; }
 
-/* ----- 7. Responsive ----- */
 @media (max-width: 768px) {
   .sidebar { width: 72px; }
   .header { left: 72px; padding: 0 16px; }
@@ -1087,31 +1068,31 @@ a:hover { text-decoration: underline; }
 @media (max-width: 480px) {
   .sidebar { display: none; }
   .header {
-    left: 0; /* Убираем отступ слева, так как сайдбара нет */
-    padding: 0 16px; /* Уменьшаем горизонтальные отступы */
+    left: 0;
+    padding: 0 16px;
   }
   .content {
-    margin-left: 0; /* Убираем отступ слева */
-    padding: 80px 16px 16px; /* Уменьшаем горизонтальные отступы */
+    margin-left: 0;
+    padding: 80px 16px 16px;
   }
   .video-grid {
-    grid-template-columns: 1fr; /* Отображаем видео в один столбец */
-    padding: 0; /* Убираем внутренние отступы сетки */
+    grid-template-columns: 1fr;
+    padding: 0;
   }
   .video-card {
-    margin-bottom: 16px; /* Добавляем отступ между карточками */
+    margin-bottom: 16px;
   }
   .video-title {
-    font-size: 18px; /* Увеличиваем размер шрифта заголовка */
+    font-size: 18px;
   }
   .video-meta {
-    font-size: 12px; /* Уменьшаем размер шрифта метаданных */
+    font-size: 12px;
   }
   .user-menu .user-name {
-    display: none; /* Можно скрыть имя пользователя, оставив только аватар */
+    display: none;
   }
   .user-avatar-img {
-    width: 32px; /* Уменьшаем размер аватара */
+    width: 32px;
     height: 32px;
   }
     .player-page {
