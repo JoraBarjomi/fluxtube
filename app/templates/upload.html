@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="upload-container">
+        <h2 class="upload-title">Загрузить видео</h2>
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-input") }}
+                {% if form.title.errors %}
+                    <div class="form-error">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-textarea") }}
+                {% if form.description.errors %}
+                    <div class="form-error">
+                        {% for error in form.description.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.video_file.label(class="form-label") }}
+                <div class="file-upload-wrapper">
+                    {{ form.video_file(class="file-upload-input") }}
+                    <label for="{{ form.video_file.id }}" class="file-upload-label">
+                        <i class="material-icons">cloud_upload</i> Выбрать файл
+                    </label>
+                </div>
+                {% if form.video_file.errors %}
+                    <div class="form-error">
+                        {% for error in form.video_file.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn upload-submit") }}
+        </form>
+    </div>
+{% endblock %}

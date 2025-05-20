@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ video.title }}{% endblock %}
+
+{% block content %}
+<div class="player-page">
+  <!-- Video Player -->
+  <div class="video-player-wrapper">
+    <video
+      id="my-player"
+      class="js-player"
+      controls
+      poster="{{ url_for('static', filename='uploads/' + video.thumbnail) }}"
+      crossorigin playsinline>
+      <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- Video Details -->
+  <div class="video-details">
+    <h1 class="video-title">{{ video.title }}</h1>
+    <div class="video-stats">
+      <span>{{ video.views }} просмотров</span>
+      <span>• {{ video.created_at.strftime('%d %B %Y') }}</span>
+    </div>
+
+    <!-- Actions: Like, Dislike -->
+    <div class="actions">
+      <button class="btn like-btn" data-video-id="{{ video.id }}">
+        <i class="material-icons">{{ 'thumb_up' if current_user.id in video.likes|map(attribute='user_id')|list else 'thumb_up_off_alt' }}</i>
+        <span class="like-count">{{ video.likes.count() }}</span>
+      </button>
+    </div>
+
+    <!-- Channel Info -->
+    <div class="channel-info">
+      <img class="channel-avatar" src="{{ url_for('static', filename='images/' + video.author.avatar) }}" alt="Аватар канала">
+      <div class="channel-meta">
+        <a href="{{ url_for('main.user_profile', username=video.author.username) }}" class="channel-name">
+          {{ video.author.username }}
+        </a>
+        <span class="subscribers">{{ video.author.subscribers.count() }} подписчиков</span>
+
+      </div>
+      {% if current_user.is_authenticated and current_user != video.author %}
+      {% if current_user.is_authenticated and current_user != video.author %}
+        <button class="btn subscribe-btn">Подписаться</button>
+      {% endif %}
+      {% endif %}
+    </div>
+
+    <!-- Description -->
+    <div class="description">
+      <div class="desc-content">
+        <p>{{ video.description }}</p>
+      </div>
+    </div>
+
+    <!-- Delete Button -->
+    {% if current_user == video.author %}
+    <form action="{{ url_for('main.delete_video', video_id=video.id) }}" method="POST">
+      <button type="submit" class="delete-btn" onclick="return confirm('Удалить видео навсегда?')">
+        <i class="material-icons">delete</i> Удалить
+      </button>
+    </form>
+    {% endif %}
+
+    <div class="video-comments">
+        <h3>Комментарии ({{ video.video_comments|length }})</h3>
+
+        {% if current_user.is_authenticated %}
+          <form id="comment-form" data-video-id="{{ video.id }}">
+            <textarea name="text" class="comment-input"
+                      placeholder="Оставьте комментарий…" required></textarea>
+            <button type="submit" class="post-comment-btn">Отправить</button>
+          </form>
+        {% else %}
+          <p><a href="{{ url_for('main.login') }}">Войдите</a>, чтобы оставить комментарий</p>
+        {% endif %}
+
+        <!-- 2. Список комментариев -->
+        <div class="comment-list">
+          {% if video.video_comments %}
+            {% for comment in video.video_comments %}
+              <div class="comment">
+                <img class="channel-avatar" src="{{ url_for('static', filename='images/' + video.author.avatar) }}" alt="Аватар канала">
+                <div class="comment-body">
+                  <div class="comment-header">
+                    <a href="{{ url_for('main.user_profile', username=comment.comment_author.username) }}"
+                      class="comment-author">
+                      {{ comment.comment_author.username }}
+                    </a>
+                    <span class="comment-date">{{ comment.created_at|time_ago }}</span>
+                  </div>
+                  <p class="comment-text">{{ comment.text }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="no-comments">Пока нет комментариев. Будьте первым!</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
+<!-- Plyr и скрипты -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const likeBtn = document.querySelector('.like-btn');
+  if (likeBtn) {
+    likeBtn.addEventListener('click', async () => {
+      const videoId = likeBtn.getAttribute('data-video-id');
+
+      const response = await fetch(`/like/${videoId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token() }}'  // Только если используешь CSRF защиту
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Обновить иконку
+        const icon = likeBtn.querySelector('i');
+        if (data.status === 'liked') {
+          icon.textContent = 'thumb_up';
+        } else {
+          icon.textContent = 'thumb_up_off_alt';
+        }
+
+        // Обновить счётчик
+        likeBtn.querySelector('.like-count').textContent = data.count;
+      } else {
+        console.error('Ошибка при отправке лайка');
+      }
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const subscribeBtn = document.querySelector('.subscribe-btn');
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener('click', async () => {
+      const authorId = '{{ video.author.id }}';  // Убедитесь, что передаёте ID автора
+
+      const response = await fetch(`/subscribe/${authorId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token() }}'  // Если используете CSRF защиту
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === 'subscribed') {
+          subscribeBtn.textContent = 'Вы подписаны';
+          subscribeBtn.disabled = true;
+        } else {
+          subscribeBtn.textContent = 'Подписаться';
+        }
+      } else {
+        console.error('Ошибка при подписке');
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

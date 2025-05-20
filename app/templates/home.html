@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}FluxTube - Видео{% endblock %}
+
+{% block content %}
+<div class="video-grid">
+    {% for video in videos %}
+    <div class="video-card">
+        <a href="{{ url_for('main.video', video_id=video.id) }}" class="thumbnail-link">
+            <div class="video-thumbnail-container">
+                <img src="{{ url_for('static', filename='uploads/' + video.thumbnail) }}"
+                     alt="{{ video.title }}"
+                     class="video-thumbnail">
+                {% if video.duration %}
+                <span class="video-duration">{{ video.duration }}</span>
+                {% endif %}
+            </div>
+        </a>
+        <div class="video-info">
+            <a href="{{ url_for('main.video', video_id=video.id) }}" class="video-title-link">
+                <h3 class="video-title">{{ video.title }}</h3>
+            </a>
+            <div class="video-meta">
+                <a href="#" class="channel-link">{{ video.author.username }}</a>
+                <span class="video-stats">{{ video.views }} просмотров • {{ video.created_at.strftime('%Y-%m-%d') }}</span>
+            </div>
+            <p class="video-description-small">
+                {% if video.description %}
+                    {{ video.description|truncate(100) }}
+                {% else %}
+                    Нет описания
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
