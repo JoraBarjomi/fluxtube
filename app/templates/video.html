@@ -59,6 +59,8 @@
     <!-- Delete Button -->
     {% if current_user == video.author %}
     <form action="{{ url_for('main.delete_video', video_id=video.id) }}" method="POST">
+      {{ csrf_token() }}
+      <input type="hidden" name="_method" value="DELETE">
       <button type="submit" class="delete-btn" onclick="return confirm('Удалить видео навсегда?')">
         <i class="material-icons">delete</i> Удалить
       </button>
