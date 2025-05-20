@@ -84,6 +84,7 @@ def upload():
         try:
             video_file = form.video_file.data
             filename = secure_filename(video_file.filename)
+            description=form.description.data,
             unique_name = f"{datetime.now().timestamp()}_{filename}"
             video_path = os.path.join(UPLOAD_FOLDER, unique_name)
             video_file.save(video_path)
@@ -135,7 +136,7 @@ def upload():
 
     return render_template('upload.html', form=form)
 
-@main_bp.route('/delete_video/<int:video_id>', methods=['POST'])
+@main_bp.route('/delete_video/<int:video_id>', methods=['POST','DELETE'])
 @login_required
 def delete_video(video_id):
     video = Video.query.get_or_404(video_id)

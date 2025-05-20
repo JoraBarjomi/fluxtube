@@ -24,7 +24,6 @@
       <span>• {{ video.created_at.strftime('%d %B %Y') }}</span>
     </div>
 
-    <!-- Actions: Like, Dislike -->
     <div class="actions">
       <button class="btn like-btn" data-video-id="{{ video.id }}">
         <i class="material-icons">{{ 'thumb_up' if current_user.id in video.likes|map(attribute='user_id')|list else 'thumb_up_off_alt' }}</i>
@@ -32,7 +31,6 @@
       </button>
     </div>
 
-    <!-- Channel Info -->
     <div class="channel-info">
       <img class="channel-avatar" src="{{ url_for('static', filename='images/' + video.author.avatar) }}" alt="Аватар канала">
       <div class="channel-meta">
@@ -52,14 +50,14 @@
     <!-- Description -->
     <div class="description">
       <div class="desc-content">
-        <p>{{ video.description|safe }}</p>
+        <p>{{ video.description }}</p>
       </div>
     </div>
 
-    <!-- Delete Button -->
     {% if current_user == video.author %}
     <form action="{{ url_for('main.delete_video', video_id=video.id) }}" method="POST">
       {{ csrf_token() }}
+      <input type="hidden" name="_method" value="DELETE">
       <button type="submit" class="delete-btn" onclick="return confirm('Удалить видео навсегда?')">
         <i class="material-icons">delete</i> Удалить
       </button>
@@ -79,7 +77,6 @@
           <p><a href="{{ url_for('main.login') }}">Войдите</a>, чтобы оставить комментарий</p>
         {% endif %}
 
-        <!-- 2. Список комментариев -->
         <div class="comment-list">
           {% if video.video_comments %}
             {% for comment in video.video_comments %}

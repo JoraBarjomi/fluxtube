@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
 
 class VideoUploadForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    description = TextAreaField('Description')
+    description = TextAreaField('Описание', validators=[Length(max=500)])
     video_file = FileField('Video File', validators=[
         FileAllowed(['mp4', 'mov', 'avi'])
     ])

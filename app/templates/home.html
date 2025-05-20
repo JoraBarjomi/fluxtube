@@ -25,11 +25,7 @@
                 <span class="video-stats">{{ video.views }} просмотров • {{ video.created_at.strftime('%Y-%m-%d') }}</span>
             </div>
             <p class="video-description-small">
-                {% if video.description %}
-                    {{ video.description|truncate(100) }}
-                {% else %}
-                    Нет описания
-                {% endif %}
+                {{ video.description[:100] ~ ('...' if video.description|length > 100 else '') }}
             </p>
         </div>
     </div>
