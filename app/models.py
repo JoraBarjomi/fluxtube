@@ -120,7 +120,7 @@ class Video(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    description = db.Column(db.Text)
+    description = db.Column(db.Text, nullable=False, default='')
     filename = db.Column(db.String(100))
     thumbnail = db.Column(db.String(100), default='default-thumbnail.jpg') 
     duration = db.Column(db.Float)
