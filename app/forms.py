@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired, Email, Length, ValidationError
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from app.models import User
@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
 
 class VideoUploadForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    description = TextAreaField('Описание', validators=[Length(max=500)])
+    description = TextAreaField('Описание', validators=[validators.Length(max=500)])
     video_file = FileField('Video File', validators=[
         FileAllowed(['mp4', 'mov', 'avi'])
     ])

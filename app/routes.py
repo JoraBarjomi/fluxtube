@@ -1,4 +1,5 @@
 import os
+import uuid
 from app import db
 from app.forms import RegistrationForm, LoginForm, VideoUploadForm
 from app.models import User, Video, Like, Dislike, Comment
@@ -84,7 +85,9 @@ def upload():
         try:
             video_file = form.video_file.data
             filename = secure_filename(video_file.filename)
-            description=form.description.data,
+            file_ext = filename.split('.')[-1] if '.' in filename else 'mp4'
+            unique_name = f"{uuid.uuid4().hex}.{file_ext}"
+            description=form.description.data
             unique_name = f"{datetime.now().timestamp()}_{filename}"
             video_path = os.path.join(UPLOAD_FOLDER, unique_name)
             video_file.save(video_path)
@@ -119,6 +122,7 @@ def upload():
             video = Video(
                 title=form.title.data,
                 filename=unique_name,
+                description=form.description.data,
                 thumbnail=thumbnail_name,
                 duration=duration,
                 user_id=current_user.id

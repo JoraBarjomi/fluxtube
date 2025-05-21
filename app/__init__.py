@@ -9,6 +9,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024
+    app.config['JSON_AS_ASCII'] = False
     
     db.init_app(app)
     migrate.init_app(app, db)

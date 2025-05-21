@@ -60,3 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.querySelector('.delete-btn').addEventListener('click', (e) => {
+    if (!confirm('Удалить видео навсегда?')) {
+        e.preventDefault();
+    }
+});
