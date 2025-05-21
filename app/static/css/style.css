@@ -195,7 +195,7 @@ a:hover { text-decoration: underline; }
 .dropdown-menu {
     display: none;
     position: absolute;
-    right.plyr__video-wrapper: 0;
+    right: 0;
     top: 100%;
     background: var(--bg-surf);
     border: 1px solid var(--border-color);
@@ -848,8 +848,10 @@ plyr__poster{
 .video-player-wrapper {
   width: 100%; 
   max-width: 1280px;
-  paddint-top: 56.25%;
-  position: relative; 
+  height: 0;   
+  padding-top: 56.25%;
+  position: relative;
+  margin: 0 auto; 
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -857,10 +859,11 @@ plyr__poster{
 }
 
 .video-player-wrapper video{
+  position: absolute; 
   width: 100%;
   max-height: 720px;
   display: block;
-  object-fit: contain;
+  object-fit: cover; 
 }
 
 .video-details {
